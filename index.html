@@ -27,8 +27,7 @@ $(document).ready(function(){
 	
 	request = $.ajax({
         url: "/apicall.php",
-        type: "post",
-        data: serializedData
+        type: "post"
     });
 	
 	request.done(function (response, textStatus, jqXHR){
