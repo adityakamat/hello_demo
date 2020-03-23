@@ -1,10 +1,69 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script>
+$(document).ready(function(){
+  var fileData;
+  $("#UploadFile").click(function(){
+	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
+          alert('The File APIs are not fully supported in this browser.');
+          return;
+        }  
+	var input = $('#file').prop('files')[0];
+   	var fr = new FileReader();
+    fr.onload = receivedText;
+	fr.readAsText(input);
+
+ 	function receivedText(){
+        fileData= fr.result;
+		$('#editor').text(fileData);      	
+	} 
+  });
+  
+  $("#SendToServer").click(function(){
+   $.get( 'https://woop.la/mywoopla/call-control/api/getParam.aspx', {
+    	xhrFields: {
+        	withCredentials: true
+    	},
+		clientid : 'DEL003',
+		passphrase : 'fg2.epw74n89kp',
+		pname : 'ROUTING001', 
+		crossorigin : "anonymous"
+		},
+		function(data, status){
+			alert("Data: " + data + "\nStatus: " + status);
+		});
+  });
+});
+</script>
 </head>
 <body>
-<h1>Pallavi makad ahe</h1>
+<div class="container">
+	<div class="">
+		<div class="col-md-4 align-self-center ">
+			
+			<label for="file">Client ID</label>
+			<input type="text" id="inputClientId" class="form-control" text='' autofocus="" value="DEL003">
+			
+			<label for="file">Passphrase</label>
+			<input type="text" id="inputPassPhrase" class="form-control" text='' autofocus="" value="fg2.epw74n89kp">
+			
+			
+			<label for="file">Parameter Name</label>
+			<input type="text" id="inputParamId" class="form-control" text='' autofocus="" value="ROUTING001">
+			
+			<label for="file">Please Select the file</label>
+			<input type="file" id="file" class="form-control">
+			
+			<button id='UploadFile' class="btn btn-primary">Upload File</button>
+			<button id = 'SendToServer' class="btn btn-success" >Send To Server</button>
+			<div id="editor"></div>
+
+		</div>
+	</div>
+</div>
 </body>
 </html>
