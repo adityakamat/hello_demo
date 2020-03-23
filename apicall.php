@@ -1,4 +1,4 @@
-<?php;
+<?php
 
 $url = 'https://woop.la/mywoopla/call-control/api/getParam.aspx';
 $data = [
