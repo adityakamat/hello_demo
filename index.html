@@ -24,19 +24,17 @@ $(document).ready(function(){
   });
   
   $("#SendToServer").click(function(){
-   $.get( 'https://woop.la/mywoopla/call-control/api/getParam.aspx', {
-    	xhrFields: {
-        	withCredentials: true
-    	},
-		clientid : 'DEL003',
-		passphrase : 'fg2.epw74n89kp',
-		pname : 'ROUTING001', 
-		crossorigin : "anonymous"
-		},
-		function(data, status){
-			alert("Data: " + data + "\nStatus: " + status);
-		});
-  });
+	
+	request = $.ajax({
+        url: "/form.php",
+        type: "post",
+        data: serializedData
+    });
+	
+	request.done(function (response, textStatus, jqXHR){
+        // Log a message to the console
+        console.log(response);
+    });
 });
 </script>
 </head>
